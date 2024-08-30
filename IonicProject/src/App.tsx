@@ -15,6 +15,10 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+<<<<<<< Updated upstream
+=======
+import Details from './pages/Details';
+>>>>>>> Stashed changes
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -44,7 +48,12 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+<<<<<<< Updated upstream
 import Details from './pages/Details';
+=======
+import DetailsMovie from './pages/DetailsMovie';
+
+>>>>>>> Stashed changes
 
 setupIonicReact();
 
@@ -65,6 +74,15 @@ const App: React.FC = () => (
           <Route exact path="/">
             <Redirect to="/tab1" />
           </Route>
+<<<<<<< Updated upstream
+=======
+          <Route exact path='/details/:index'>
+						<Details />
+					</Route>
+          <Route exact path='/detailsmovie/:id'>
+						<DetailsMovie />
+					</Route>
+>>>>>>> Stashed changes
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
           <IonTabButton tab="tab1" href="/tab1">

@@ -21,6 +21,11 @@ import {
 import { useEffect, useState } from 'react';
 import { IonSelectCustomEvent } from '@ionic/core';
 import Pokemon from '../types/Pokemon';
+<<<<<<< Updated upstream
+=======
+import Details from './Details';
+import './Tab2.css';
+>>>>>>> Stashed changes
 
 const Tab2: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
