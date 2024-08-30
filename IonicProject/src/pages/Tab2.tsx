@@ -21,11 +21,7 @@ import {
 import { useEffect, useState } from 'react';
 import { IonSelectCustomEvent } from '@ionic/core';
 import Pokemon from '../types/Pokemon';
-<<<<<<< Updated upstream
-=======
-import Details from './Details';
 import './Tab2.css';
->>>>>>> Stashed changes
 
 const Tab2: React.FC = () => {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -34,7 +30,7 @@ const Tab2: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const ITEMS_PER_PAGE = 12; // Nombre de Pokémon par page
+  const ITEMS_PER_PAGE = 12;
 
   const handleSelectHouse = (e: IonSelectCustomEvent<SelectChangeEventDetail>) => {
     const filter = e.detail.value;
@@ -50,7 +46,7 @@ const Tab2: React.FC = () => {
     });
 
     setFilteredPokemons(newFilteredPokemons);
-    setCurrentPage(0); // Revenir à la première page lorsque le filtre change
+    setCurrentPage(0);
   };
 
   useEffect(() => {
@@ -59,10 +55,10 @@ const Tab2: React.FC = () => {
         const request = await fetch('https://pokebuildapi.fr/api/v1/pokemon');
         const response = await request.json();
         setPokemons(response);
-        setFilteredPokemons(response); // Initialement tous les Pokémon
+        setFilteredPokemons(response);
         setLoading(false);
       } catch (error) {
-        console.log(error, 'Erreur lors de la récupération des données');
+        console.log('Erreur lors de la récupération des données', error);
         setLoading(false);
       }
     };
@@ -75,7 +71,6 @@ const Tab2: React.FC = () => {
     )
   );
 
-  // Calcul des Pokémon à afficher sur la page actuelle
   const startIndex = currentPage * ITEMS_PER_PAGE;
   const paginatedPokemons = filteredPokemons.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
@@ -95,7 +90,7 @@ const Tab2: React.FC = () => {
     <IonPage>
       <IonHeader translucent={true}>
         <IonToolbar>
-          <IonTitle slot='start'>POKEMON FAMILY</IonTitle>
+          <IonTitle slot="start">POKEMON FAMILY</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>
@@ -104,8 +99,8 @@ const Tab2: React.FC = () => {
             value={selectedFilter}
             onIonChange={handleSelectHouse}
           >
-            <div slot='label'>Select a type</div>
-            <IonSelectOption value='All'>All Types</IonSelectOption>
+            <div slot="label">Select a type</div>
+            <IonSelectOption value="All">All Types</IonSelectOption>
             {uniqueTypes.map((type, index) => (
               <IonSelectOption key={index} value={type.toLowerCase()}>
                 {type}
@@ -123,32 +118,20 @@ const Tab2: React.FC = () => {
                     <IonCard>
                       <IonImg src={p.image} style={{ width: '80%', height: 'auto', margin: 'auto' }} />
                       <IonCardHeader>
-                        <IonCardTitle style={{textAlign: 'center'}}>{p.name}</IonCardTitle>
+                        <IonCardTitle style={{ textAlign: 'center' }}>{p.name}</IonCardTitle>
                       </IonCardHeader>
                       <IonCardContent>
-                        {!p.apiTypes[1] && (
-                          <IonRow>
-                            <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'auto' }}>
-                              <h6>{p.apiTypes[0]?.name}</h6>
-                              <IonImg src={p.apiTypes[0]?.image} style={{ width: '15%' }} />
+                        <IonRow>
+                          {p.apiTypes.map((type, typeIndex) => (
+                            <IonCol key={typeIndex} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'auto' }}>
+                              <h6>{type.name}</h6>
+                              <IonImg src={type.image} style={{ width: '30%' }} />
                             </IonCol>
-                          </IonRow>
-                        )}
-                        {p.apiTypes[1] && (
-                          <IonRow>
-                            <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'auto' }}>
-                              <h6>{p.apiTypes[0]?.name}</h6>
-                              <IonImg src={p.apiTypes[0]?.image} style={{ width: '30%' }} />
-                            </IonCol>
-                            <IonCol style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: 'auto' }}>
-                              <h6>{p.apiTypes[1]?.name}</h6>
-                              <IonImg src={p.apiTypes[1]?.image} style={{ width: '30%' }} />
-                            </IonCol>
-                          </IonRow>
-                        )}
+                          ))}
+                        </IonRow>
                       </IonCardContent>
                       <IonRow style={{ marginBottom: '10px', padding: '0 16px' }}>
-                        <IonButton expand="block" style={{width: '100%'}} href='./Details'>Voir plus</IonButton>
+                        <IonButton expand="block" style={{ width: '100%' }} routerLink={`/details/${p.id}`}>Voir plus</IonButton>
                       </IonRow>
                     </IonCard>
                   </IonCol>
